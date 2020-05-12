@@ -1,6 +1,7 @@
 // CapOneCSVParser.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include "CapOneCSVReader.h"
 #include <fstream>
 #include <istream>
 #include <sstream>
@@ -10,7 +11,7 @@
 #include <vector>
 
 using namespace std;
-
+/*
 const static string AIRFARE = "Airfare";
 const static string CAR_RENTAL = "Car Rental";
 const static string DINING = "Dining";
@@ -24,9 +25,9 @@ const static string OTHER_SERVICES = "Other Services";
 const static string OTHER_TRAVEL = "Other Travel";
 const static string PAYMENT_CREDIT = "Payment/Credit";
 const static string UTILITIES = "Utilities";
-
+*/
 int main() {
-
+    /*
     ifstream in("CapOneData2019.csv");
     if (!in.is_open())
         cout << "ERROR: File Open" << '\n';
@@ -47,6 +48,10 @@ int main() {
         }
     }
 
+    vector<tuple<string, double>> myTupleVec;
+    for (int i = 0; i < dataVec.size(); i++)
+        myTupleVec.push_back(make_tuple(dataVec[i][0], stod(dataVec[i][1])));
+
     double sumAirfare = 0;
     double sumCarRental = 0;
     double sumDining = 0;
@@ -61,11 +66,6 @@ int main() {
     double sumPaymentCredit = 0;
     double sumUtilities = 0;
     double sumInvalid = 0;
-
-
-    vector<tuple<string, double>> myTupleVec;
-    for (int i = 0; i < dataVec.size(); i++)
-        myTupleVec.push_back(make_tuple(dataVec[i][0], stod(dataVec[i][1])));
 
     for (int i = 0; i < myTupleVec.size(); i++)
     {
@@ -123,6 +123,8 @@ int main() {
         + sumMerchandise + sumOther + sumOtherServices + sumOtherTravel + sumPaymentCredit + sumUtilities + sumInvalid << '\n'
         << endl;
 
+    */
+
     /*
     cout << "\nFinancial Data:\n";
     for (const auto& i : myTupleVec) {
@@ -132,7 +134,33 @@ int main() {
     }
     */
 
-    in.close();
+    //in.close();
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TEST ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
+    CapOneCSVReader csv("CapOneData2019.csv");
+
+    cout << "Debits by Category" << '\n'
+        << "----------------------------" << '\n'
+        << endl;
+
+
+    cout << "Airfare: \t\t$" << csv.getTotalAirfare() << '\n'
+        << "Car Rental: \t\t$" << csv.getTotalCarRental() << '\n'
+        << "Dining: \t\t$" << csv.getTotalDining() << '\n'
+        << "Entertainment: \t\t$" << csv.getTotalEntertainment() << '\n'
+        << "Fee/Interest Charge: \t$" << csv.getTotalFeeIntCharge() << '\n'
+        << "Gas/Automotive: \t$" << csv.getTotalGasAutomotive() << '\n'
+        << "Healthcare: \t\t$" << csv.getTotalHealthcare() << '\n'
+        << "Merchandise: \t\t$" << csv.getTotalMerchandise() << '\n'
+        << "Other: \t\t\t$" << csv.getTotalOther() << '\n'
+        << "Other Services: \t$" << csv.getTotalOtherServices() << '\n'
+        << "Other Travel: \t\t$" << csv.getTotalOtherTravel() << '\n'
+        << "Payment/Credit: \t$" << csv.getTotalPaymentCredit() << '\n'
+        << "Utilities: \t\t$" << csv.getTotalUtilities() << '\n'
+        << '\n' << "Total Spent: \t\t$" << csv.getTotal() << '\n'
+        << endl;
+
     std::system("pause");
 }
 
